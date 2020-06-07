@@ -1,5 +1,7 @@
+
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const 
 
 //==============MySQL Connection=================
 var connection = mysql.createConnection({
@@ -36,6 +38,7 @@ function generateApp() {
           "Update Employee Roles",
           "View All Employees by Manager",
           "Update Employee Manager",
+          //bonus delete, role, department, employee
           "Exit App"
         ],
       },
@@ -70,6 +73,7 @@ function generateApp() {
           case "Update Employee Manager":
             updateEmployeeManager();
             break;
+            //bonus delete depart, role, employee
           case "Exit App":
             connection.end(); 
             break;
@@ -78,40 +82,69 @@ function generateApp() {
     });
   };
 
-  //======functions based on user answer========================
+  //======functions based on selected user answer========================
     function viewEmployees() {
       console.log("you want to view employee")
+      //SELECT first_name, last_name FROM employee;
+      
     }
 
     function viewByDepartment() {
       console.log("view department")
+      //SELECT employee FROM department;
     }
 
     function viewByRole() {
       console.log("view roles")
+      //SELECT role
     }
 
     function addEmployee() {
       console.log("add employee")
+      //INSERT INTO employee
+      //VALUE
     }
 
     function addDepartment() {
       console.log("add depart")
+      //INSERT INTO department
+      //VALUE
     }
 
     function addRole() {
       console.log("add role")
+      //INSERT INTO
+      //VALUE
     }
 
     function updateRole() {
       console.log("update role")
+      //UPDATE products SET ? WHERE ?
+      //
+
     }
 
     function viewByManager(){
       console.log("view by manager")
+      //SELECT 
     }
 
     function updateEmployeeManager() {
       console.log("update employeee manag")
+      //UPDATE products SET ? WHERE ?
+
     }
+
+    //=====BONUS=======
+ /*    function deleteDepartment(){
+
+    }
+
+    function deleteRole(){
+
+    }
+
+    function deleteEmployee(){
+
+    } */
 
