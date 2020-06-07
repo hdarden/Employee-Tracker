@@ -14,12 +14,12 @@ connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId + "\n");
   //calling employee tracker app to start
-  trackEmployee();
+  generateApp();
 });
 
 //===============Command Line App/Inquirer===========================
 //holds all the inquirer questions
-function trackEmployee() {
+function generateApp() {
   //prompts on how the user would like to use the app
   inquirer
     .prompt([
@@ -40,11 +40,42 @@ function trackEmployee() {
         ],
       },
     ])
-    .then(function (answers) {
-      console.log("You selected", answers);
-        
-    });
+    .then(function (answer) {
+      console.log("You selected", answer);
+        switch (answer.action) {
+          case "View All Employees":
+            viewEmployees();
+            break;
+          case "View Employees by Department":
+            viewByDepartment();
+            break;
+          case "View Employees by Role":
+            viewByRole();
+            break;
+          case "Add Employee":
+            addEmployee();
+            break;
+          case "Add Department":
+            addDepartment();
+            break;
+          case "Add Role":
+            addRole();
+            break;
+          case "Update Employee Roles":
+            updateRole();
+            break;
+          case "View All Employees by Manager":
+            viewByManager();
+            break;
+          case "Update Employee Manager":
+            updateEmployeeManager();
+            break;
+            default:
 
+        };
+
+    });
+  };
 
     function viewEmployees() {
 
@@ -82,4 +113,4 @@ function trackEmployee() {
     function updateEmployeeManager() {
 
     }
-}
+
