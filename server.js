@@ -1,9 +1,8 @@
-
 const mysql = require("mysql");
 const inquirer = require("inquirer");
-const 
+const table = "#";
 
-//==============MySQL Connection=================
+//============== MySQL Connection =================
 var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
@@ -19,7 +18,7 @@ connection.connect(function (err) {
   generateApp();
 });
 
-//==========================================
+//================== ET APP ========================
 function generateApp() {
   //prompts on how the user would like to use the app
   inquirer
@@ -38,22 +37,25 @@ function generateApp() {
           "Update Employee Roles",
           "View All Employees by Manager",
           "Update Employee Manager",
-          //bonus delete, role, department, employee
+          "Delete Role",
+          "Delete Department", 
+          "Delete Employee",
           "Exit App"
         ],
       },
     ])
+    //generates directive based on user answer
     .then(function (answer) {
       console.log(answer.generate);
         switch (answer.generate) {
           case "View All Employees":
             viewEmployees();
             break;
-          case "View Employees by Department":
-            viewByDepartment();
+          case "View Department":
+            viewDepartment();
             break;
-          case "View Employees by Role":
-            viewByRole();
+          case "View Roles":
+            viewRole();
             break;
           case "Add Employee":
             addEmployee();
@@ -73,7 +75,15 @@ function generateApp() {
           case "Update Employee Manager":
             updateEmployeeManager();
             break;
-            //bonus delete depart, role, employee
+          case "Delete Role":
+            deleteRole();
+            break;
+          case "Delete Department":
+            deleteDepartment();
+            break;
+          case "Delete Employee":
+            deleteEmployee();
+            break;
           case "Exit App":
             connection.end(); 
             break;
@@ -89,12 +99,12 @@ function generateApp() {
       
     }
 
-    function viewByDepartment() {
+    function viewDepartment() {
       console.log("view department")
       //SELECT employee FROM department;
     }
 
-    function viewByRole() {
+    function viewRole() {
       console.log("view roles")
       //SELECT role
     }
@@ -136,7 +146,7 @@ function generateApp() {
     }
 
     //=====BONUS=======
- /*    function deleteDepartment(){
+    function deleteDepartment(){
 
     }
 
@@ -146,5 +156,5 @@ function generateApp() {
 
     function deleteEmployee(){
 
-    } */
+    } 
 
