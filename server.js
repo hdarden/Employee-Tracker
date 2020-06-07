@@ -112,12 +112,12 @@ function generateApp() {
     }
 
     function viewRole() {
-      console.log("view roles")
-      var query = connection.query(
-
-        );
-        console.log(query.sql);
-      //SELECT role
+      console.log("Employee Roles List: ")
+      connection.query("SELECT * FROM role", function(err, res){
+        if (err) throw err;
+        console.table(res);
+        generateApp();
+      })
     }
 
     function addEmployee() {
