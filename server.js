@@ -17,8 +17,7 @@ connection.connect(function (err) {
   generateApp();
 });
 
-//===============Command Line App/Inquirer===========================
-//holds all the inquirer questions
+//==========================================
 function generateApp() {
   //prompts on how the user would like to use the app
   inquirer
@@ -36,13 +35,14 @@ function generateApp() {
           "Add Role",
           "Update Employee Roles",
           "View All Employees by Manager",
-          "Update Employee Manager"
+          "Update Employee Manager",
+          "Exit App"
         ],
       },
     ])
     .then(function (answer) {
-      console.log("You selected", answer);
-        switch (answer.action) {
+      console.log(answer.generate);
+        switch (answer.generate) {
           case "View All Employees":
             viewEmployees();
             break;
@@ -70,47 +70,48 @@ function generateApp() {
           case "Update Employee Manager":
             updateEmployeeManager();
             break;
-            default:
-
+          case "Exit App":
+            connection.end(); 
+            break;
         };
 
     });
   };
 
+  //======functions based on user answer========================
     function viewEmployees() {
-
+      console.log("you want to view employee")
     }
 
     function viewByDepartment() {
-
+      console.log("view department")
     }
 
     function viewByRole() {
-
-
+      console.log("view roles")
     }
 
     function addEmployee() {
-
+      console.log("add employee")
     }
 
     function addDepartment() {
-
+      console.log("add depart")
     }
 
     function addRole() {
-
+      console.log("add role")
     }
 
     function updateRole() {
-
+      console.log("update role")
     }
 
     function viewByManager(){
-
+      console.log("view by manager")
     }
 
     function updateEmployeeManager() {
-
+      console.log("update employeee manag")
     }
 
