@@ -189,9 +189,28 @@ function generateApp() {
 
     function addDepartment() {
       console.log("add depart")
-      
-      //INSERT INTO department
-      //VALUE
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            message: "What is the department name?",
+            name: "department"
+          }
+        ]).then(function(answer){
+          console.log(answer.department);
+            var query = connection.query(
+              "INSERT INTO department SET ?",
+              {
+                name: answer.department
+              },
+              function(err, res) {
+                if (err) throw err;
+                console.log(res.affectedRows + " New Department has been successfully added!");
+                generateApp();
+              }
+            );
+            console.log(query.sql);
+        })
     }
 
     function addRole() {
