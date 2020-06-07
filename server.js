@@ -95,40 +95,67 @@ function generateApp() {
   //======functions based on selected user answer========================
     function viewEmployees() {
       console.log("you want to view employee")
-      //SELECT first_name, last_name FROM employee;
-      
+      connection.query("SELECT * FROM employee", function(err, res){
+        if (err) throw err;
+        console.table(res);
+        
+      })
     }
 
     function viewDepartment() {
       console.log("view department")
+      var query = connection.query(
+
+        );
+        console.log(query.sql);
       //SELECT employee FROM department;
     }
 
     function viewRole() {
       console.log("view roles")
+      var query = connection.query(
+
+        );
+        console.log(query.sql);
       //SELECT role
     }
 
     function addEmployee() {
       console.log("add employee")
+      var query = connection.query(
+
+        );
+        console.log(query.sql);
       //INSERT INTO employee
       //VALUE
     }
 
     function addDepartment() {
       console.log("add depart")
+      var query = connection.query(
+
+        );
+        console.log(query.sql);
       //INSERT INTO department
       //VALUE
     }
 
     function addRole() {
       console.log("add role")
+      var query = connection.query(
+
+        );
+        console.log(query.sql);
       //INSERT INTO
       //VALUE
     }
 
     function updateRole() {
       console.log("update role")
+      var query = connection.query(
+
+        );
+        console.log(query.sql);
       //UPDATE products SET ? WHERE ?
       //
 
@@ -136,25 +163,50 @@ function generateApp() {
 
     function viewByManager(){
       console.log("view by manager")
+      var query = connection.query(
+
+        );
+        console.log(query.sql);
       //SELECT 
     }
 
     function updateEmployeeManager() {
       console.log("update employeee manag")
+      var query = connection.query(
+
+        );
+        console.log(query.sql);
       //UPDATE products SET ? WHERE ?
 
     }
 
-    //=====BONUS=======
+
+    //=====BONUS=======DELETE
     function deleteDepartment(){
+      console.log("delete department selected")
+      var query = connection.query(
+
+        );
+        console.log(query.sql);
 
     }
 
     function deleteRole(){
+      console.log("delete role selected")
+      var query = connection.query(
+
+        );
+        console.log(query.sql);
 
     }
 
     function deleteEmployee(){
+      console.log("delete employee selected")
+      var query = connection.query(
+
+        );
+        console.log(query.sql);
 
     } 
 
+  

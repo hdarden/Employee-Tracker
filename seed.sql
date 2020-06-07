@@ -1,6 +1,6 @@
 USE employee_trackerDB;
 
-INSERT INTO department (name);
+INSERT INTO department (name)
 VALUES ("Footwear"),
 ("Apparel"),
 ("Front End"),
@@ -9,16 +9,16 @@ VALUES ("Footwear"),
 ("Bikes"),
 ("Outdoor Sports");
 
-INSERT INTO role (title, salary, department_id);
-VALUES ("Store Manager", 90,000, 1)
-("Department Manager", 75,000, 1),
-("Keyholder", 50,000, 2),
-("Department Lead", 40,000, 2),
-("Salesperson", 25,000, 3),
-("Accountant", 75,000, 4),
-("Human Resources", 60,000, 4);
+INSERT INTO role (title, salary, department_id)
+VALUES ("Store Manager", 90000, 1),
+("Department Manager", 75000, 1),
+("Keyholder", 50000, 2),
+("Department Lead", 40000, 2),
+("Salesperson", 25000, 3),
+("Accountant", 75000, 4),
+("Human Resources", 60000, 4);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id);
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ("Helen", "Taylor", 1, 1234),
 ("Sallie", "Jane", 2, NULL),
 ("Sara", "Plummer", 1, 2345),
