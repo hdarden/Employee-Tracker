@@ -29,8 +29,8 @@ function generateApp() {
         name: "generate",
         choices: [
           "View All Employees",
-          "View Employees by Department",
-          "View Employees by Role",
+          "View Departments",
+          "View Roles",
           "Add Employee",
           "Add Department",
           "Add Role",
@@ -51,7 +51,7 @@ function generateApp() {
           case "View All Employees":
             viewEmployees();
             break;
-          case "View Department":
+          case "View Departments":
             viewDepartment();
             break;
           case "View Roles":
@@ -94,21 +94,21 @@ function generateApp() {
 
   //======functions based on selected user answer========================
     function viewEmployees() {
-      console.log("you want to view employee")
+      console.log("Employee List: ")
       connection.query("SELECT * FROM employee", function(err, res){
         if (err) throw err;
         console.table(res);
-        
+        generateApp();
       })
     }
 
     function viewDepartment() {
-      console.log("view department")
-      var query = connection.query(
-
-        );
-        console.log(query.sql);
-      //SELECT employee FROM department;
+      console.log("Department List: ")
+      connection.query("SELECT * FROM department", function(err, res){
+        if (err) throw err;
+        console.table(res);
+        generateApp();
+      })
     }
 
     function viewRole() {
