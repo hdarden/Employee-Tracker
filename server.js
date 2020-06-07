@@ -29,14 +29,12 @@ function generateApp() {
         name: "generate",
         choices: [
           "View All Employees",
-          "View Departments",
-          "View Roles",
+          "View All Departments",
+          "View All Roles",
           "Add Employee",
           "Add Department",
           "Add Role",
           "Update Employee Roles",
-          "View All Employees by Manager",
-          "Update Employee Manager",
           "Delete Role",
           "Delete Department", 
           "Delete Employee",
@@ -51,10 +49,10 @@ function generateApp() {
           case "View All Employees":
             viewEmployees();
             break;
-          case "View Departments":
+          case "View All Departments":
             viewDepartment();
             break;
-          case "View Roles":
+          case "View All Roles":
             viewRole();
             break;
           case "Add Employee":
@@ -68,12 +66,6 @@ function generateApp() {
             break;
           case "Update Employee Roles":
             updateRole();
-            break;
-          case "View All Employees by Manager":
-            viewByManager();
-            break;
-          case "Update Employee Manager":
-            updateEmployeeManager();
             break;
           case "Delete Role":
             deleteRole();
@@ -121,62 +113,99 @@ function generateApp() {
     }
 
     function addEmployee() {
-      console.log("add employee")
-      var query = connection.query(
+      console.log("Follow prompts to add new employee: ");
+      inquirer.prompt([
+        {
+          type: "input",
+          message: "Enter employee's first name:",
+          name: "employee_first_name"
+        },
+        {
+          type: "input",
+          message: "Enter employee's last name:",
+          name: "employee_last_name"
+        },
+        {
+          type: "input",
+          message: "Enter employee's single digit role id number:",
+          name: "role_id"
+        },
+        {
+          type: "confirm",
+          message: "Is the employee a manager?",
+          name: "manager"
+        }
+      ]).then(function(answers){
+        console.log(answers.manager)
+        if(answers.manager){
+          inquirer
+            .prompt([
+              {
+                type: "input",
+                message: "Enter manager's id number:",
+                name: "manager_id"
+              }
 
-        );
-        console.log(query.sql);
-      //INSERT INTO employee
-      //VALUE
+          ]).then(function(answer){
+            console.log(answer.manager_id);
+            var query = connection.query(
+              "INSERT INTO employee SET ?",
+              {
+                first_name: answers.employee_first_name,
+                last_name: answers.employee_last_name,
+                role_id: answers.role_id,
+                manager_id: answer.manager_id
+              },
+              function(err, res) {
+                if (err) throw err;
+                console.log(res.affectedRows + " New Employee has been successfully added!");
+                generateApp();
+              }
+            );
+            console.log(query.sql);
+          })
+
+        }else{
+          var query = connection.query(
+              "INSERT INTO employee SET ?",
+              {
+                first_name: answer.employee_first_name,
+                last_name: answer.employee_last_name,
+                role_id: answer.role_id,
+              },
+              function(err, res) {
+                if (err) throw err;
+                console.log(res.affectedRows + " New Employee has been successfully added!");
+                generateApp();
+              }
+            );
+          console.log(query.sql);
+        }
+      })
+      
+     
     }
+    //havent gotten managers option working correctly yet
 
     function addDepartment() {
       console.log("add depart")
-      var query = connection.query(
-
-        );
-        console.log(query.sql);
+      
       //INSERT INTO department
       //VALUE
     }
 
     function addRole() {
       console.log("add role")
-      var query = connection.query(
-
-        );
-        console.log(query.sql);
+      
       //INSERT INTO
       //VALUE
     }
 
     function updateRole() {
       console.log("update role")
-      var query = connection.query(
-
-        );
-        console.log(query.sql);
+      
       //UPDATE products SET ? WHERE ?
       //
-
-    }
-
-    function viewByManager(){
-      console.log("view by manager")
-      var query = connection.query(
-
-        );
-        console.log(query.sql);
-      //SELECT 
-    }
-
-    function updateEmployeeManager() {
-      console.log("update employeee manag")
-      var query = connection.query(
-
-        );
-        console.log(query.sql);
-      //UPDATE products SET ? WHERE ?
 
     }
 
@@ -184,29 +213,17 @@ function generateApp() {
     //=====BONUS=======DELETE
     function deleteDepartment(){
       console.log("delete department selected")
-      var query = connection.query(
-
-        );
-        console.log(query.sql);
-
+      
     }
 
     function deleteRole(){
       console.log("delete role selected")
-      var query = connection.query(
-
-        );
-        console.log(query.sql);
-
+      
     }
 
     function deleteEmployee(){
       console.log("delete employee selected")
-      var query = connection.query(
-
-        );
-        console.log(query.sql);
-
+      
     } 
 
   
