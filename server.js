@@ -188,7 +188,7 @@ function generateApp() {
     //havent gotten managers option working correctly yet
 
     function addDepartment() {
-      console.log("add depart")
+      console.log("Follow the prompt to add a new Department:")
       inquirer
         .prompt([
           {
@@ -214,10 +214,40 @@ function generateApp() {
     }
 
     function addRole() {
-      console.log("add role")
-      
-      //INSERT INTO
-      //VALUE
+      console.log("Follow the prompt to add a new Role:")
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            message: "What is the new role title?",
+            name: "role_title"
+          },
+          {
+            type: "input",
+            message: "What is the salary of the new role?",
+            name: "salary"
+          },
+          {
+            type: "input",
+            message: "Please list the department ID for the new role:",
+            name: "department_id"
+          }
+        ]).then(function(answer){
+            var query = connection.query(
+              "INSERT INTO role SET ?",
+              {
+                title: answer.role_title,
+                salary: answer.salary,
+                department_id: answer.department_id
+              },
+              function(err, res) {
+                if (err) throw err;
+                console.log(res.affectedRows + " New Role has been successfully added!");
+                generateApp();
+              }
+            );
+            console.log(query.sql);
+        })
     }
 
     function updateRole() {
