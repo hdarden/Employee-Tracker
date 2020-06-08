@@ -135,38 +135,40 @@ function generateApp() {
           message: "Is the employee a manager?",
           name: "manager"
         }
-      ]).then(function(answers){
-        console.log(answers.manager)
-        if(answers.manager){
-          inquirer
-            .prompt([
-              {
-                type: "input",
-                message: "Enter manager's id number:",
-                name: "manager_id"
-              }
 
           ]).then(function(answer){
-            console.log(answer.manager_id);
-            var query = connection.query(
-              "INSERT INTO employee SET ?",
-              {
-                first_name: answers.employee_first_name,
-                last_name: answers.employee_last_name,
-                role_id: answers.role_id,
-                manager_id: answer.manager_id
-              },
-              function(err, res) {
-                if (err) throw err;
-                console.log(res.affectedRows + " New Employee has been successfully added!\n");
-                generateApp();
-              }
-            );
-            console.log(query.sql);
-          })
+            const firstName = answer.employee_first_name;
+            const lastName = answer.employee_last_name;
+            const roleId = answer.role_id;
+            const isManager = answer.manager;
 
-        }else{
-          var query = connection.query(
+            if(isManager){
+              inquirer.prompt([
+                {
+                  type: "input",
+                  message: "What is the manager ID?",
+                  name: "manager_id"
+                }
+              ]).then(function(answer){
+                var query = connection.query(
+                "INSERT INTO employee SET ?",
+                {
+                  first_name: firstName,
+                  last_name: lastName,
+                  role_id: roleId,
+                  manager_id: answer.manager_id
+                },
+                function(err, res) {
+                  if (err) throw err;
+                  console.log(res.affectedRows + " New Employee has been successfully added!\n");
+                  generateApp();
+                }
+              );
+              })
+
+              
+            }else{
+              var query = connection.query(
               "INSERT INTO employee SET ?",
               {
                 first_name: answer.employee_first_name,
@@ -175,18 +177,15 @@ function generateApp() {
               },
               function(err, res) {
                 if (err) throw err;
-                console.log(res.affectedRows + " New Employee has been successfully added!");
+                console.log(res.affectedRows + " New Employee has been successfully added!\n");
                 generateApp();
               }
             );
-          console.log(query.sql);
-        }
+            }
+          
       })
-      
-     
     }
-    //havent gotten managers option working correctly yet
-
+   
     function addDepartment() {
       console.log("Follow the prompt to add a new Department:\n")
       inquirer
@@ -209,7 +208,7 @@ function generateApp() {
                 generateApp();
               }
             );
-            console.log(query.sql);
+           
         })
     }
 
@@ -246,7 +245,6 @@ function generateApp() {
                 generateApp();
               }
             );
-            console.log(query.sql);
         })
     }
 
