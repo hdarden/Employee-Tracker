@@ -341,8 +341,27 @@ function generateApp() {
     }
 
     function deleteEmployee(){
-      console.log("delete employee selected")
-      
+      console.log("Follow prompt to delete Employee: \n")
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            message: "Enter the employee ID to be deleted?",
+            name: "delete_employee"
+          }
+        ]).then(function(answer){
+          var employee = answer.delete_employee;
+          connection.query("DELETE FROM employee WHERE ?",
+          {
+            id: employee
+          },
+          function(err, res) {
+            if(err) throw err;
+            console.log(res.affectedRows + " employee deleted!\n");
+            generateApp();
+          }
+          )
+        })
     } 
 
   
