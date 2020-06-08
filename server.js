@@ -44,7 +44,7 @@ function generateApp() {
     ])
     //generates directive based on user answer
     .then(function (answer) {
-      console.log(answer.generate);
+      //console.log(answer.generate);
         switch (answer.generate) {
           case "View All Employees":
             viewEmployees();
@@ -86,7 +86,7 @@ function generateApp() {
 
   //======functions based on selected user answer========================
     function viewEmployees() {
-      console.log("Employee List: ")
+      console.log("Employee List: \n")
       connection.query("SELECT * FROM employee", function(err, res){
         if (err) throw err;
         console.table(res);
@@ -95,7 +95,7 @@ function generateApp() {
     }
 
     function viewDepartment() {
-      console.log("Department List: ")
+      console.log("Department List:\n")
       connection.query("SELECT * FROM department", function(err, res){
         if (err) throw err;
         console.table(res);
@@ -104,7 +104,7 @@ function generateApp() {
     }
 
     function viewRole() {
-      console.log("Employee Roles List: ")
+      console.log("Employee Roles: \n")
       connection.query("SELECT * FROM role", function(err, res){
         if (err) throw err;
         console.table(res);
@@ -113,7 +113,7 @@ function generateApp() {
     }
 
     function addEmployee() {
-      console.log("Follow prompts to add new employee: ");
+      console.log("Follow prompts to add new employee:\n");
       inquirer.prompt([
         {
           type: "input",
@@ -158,7 +158,7 @@ function generateApp() {
               },
               function(err, res) {
                 if (err) throw err;
-                console.log(res.affectedRows + " New Employee has been successfully added!");
+                console.log(res.affectedRows + " New Employee has been successfully added!\n");
                 generateApp();
               }
             );
@@ -188,7 +188,7 @@ function generateApp() {
     //havent gotten managers option working correctly yet
 
     function addDepartment() {
-      console.log("Follow the prompt to add a new Department:")
+      console.log("Follow the prompt to add a new Department:\n")
       inquirer
         .prompt([
           {
@@ -197,7 +197,7 @@ function generateApp() {
             name: "department"
           }
         ]).then(function(answer){
-          console.log(answer.department);
+          //console.log(answer.department);
             var query = connection.query(
               "INSERT INTO department SET ?",
               {
@@ -205,7 +205,7 @@ function generateApp() {
               },
               function(err, res) {
                 if (err) throw err;
-                console.log(res.affectedRows + " New Department has been successfully added!");
+                console.log(res.affectedRows + " New Department has been successfully added!\n");
                 generateApp();
               }
             );
@@ -214,7 +214,7 @@ function generateApp() {
     }
 
     function addRole() {
-      console.log("Follow the prompt to add a new Role:")
+      console.log("Follow the prompt to add a new Role:\n")
       inquirer
         .prompt([
           {
@@ -242,7 +242,7 @@ function generateApp() {
               },
               function(err, res) {
                 if (err) throw err;
-                console.log(res.affectedRows + " New Role has been successfully added!");
+                console.log(res.affectedRows + " New Role has been successfully added!\n");
                 generateApp();
               }
             );
@@ -251,18 +251,69 @@ function generateApp() {
     }
 
     function updateRole() {
-      console.log("update role")
-      
-      //UPDATE products SET ? WHERE ?
-      //
-
+      console.log("Follow prompts to update Role: \n")
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            message: "Enter :",
+            name: "employee_id"
+          },
+          {
+            type: "input",
+            message: "Enter employee new role ID:",
+            name: "role_id"
+          }
+        ]).then(function(answer){
+          var employeeId = answer.employee_id;
+          var roleId = answer.role_id;
+          
+          var query = connection.query(
+                "UPDATE employee SET ? WHERE ?",
+                [
+                  {
+                    id: employeeId
+                  },
+                  {
+                    role_id: roleId
+                  }
+                ],
+                function(err, res) {
+                  if (err) throw err;
+                  console.log(res.affectedRows + " Role updated!\n");
+                  // Call deleteRole AFTER the UPDATE completes
+                  deleteRole();
+                }
+              );
+              console.log(query.sql);
+            
+        });
     }
-
+//Not sure what exactly they are wanting updated for this function
 
     //=====BONUS=======DELETE
     function deleteDepartment(){
       console.log("delete department selected")
-      
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            message: "What department would you like to remove?",
+            name: "delete_dept"
+          }
+        ]).then(function(answer){
+          var dept = answer.delete_dept;
+          connection.query("DELETE FROM department WHERE ?",
+          {
+            name: dept
+          },
+          function(err, res) {
+            if(err) throw err;
+            console.log(res.affectedRows + " department deleted!\n");
+            generateApp();
+          }
+          )
+        })
     }
 
     function deleteRole(){
