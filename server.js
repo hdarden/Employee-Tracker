@@ -293,12 +293,12 @@ function generateApp() {
 
     //=====BONUS=======DELETE
     function deleteDepartment(){
-      console.log("delete department selected")
+      console.log("Follow prompt to delete a Department:\n")
       inquirer
         .prompt([
           {
             type: "input",
-            message: "What department would you like to remove?",
+            message: "What department would you like to delete?",
             name: "delete_dept"
           }
         ]).then(function(answer){
@@ -317,8 +317,27 @@ function generateApp() {
     }
 
     function deleteRole(){
-      console.log("delete role selected")
-      
+      console.log("Follow prompt to delete a Role: \n")
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            message: "Enter the ID of the role would you like to delete?",
+            name: "delete_role"
+          }
+        ]).then(function(answer){
+          var roleId = answer.delete_role;
+          connection.query("DELETE FROM role WHERE ?",
+          {
+            id: roleId
+          },
+          function(err, res) {
+            if(err) throw err;
+            console.log(res.affectedRows + " role deleted!\n");
+            generateApp();
+          }
+          )
+        })
     }
 
     function deleteEmployee(){
