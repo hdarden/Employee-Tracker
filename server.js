@@ -26,7 +26,7 @@ function generateApp() {
         type: "list",
         message: "What would you like to do?",
         name: "generate",
-        choices: [
+        choices: ["Display All Employee Info",
           "View All Employees",
           "View All Departments",
           "View All Roles",
@@ -45,6 +45,9 @@ function generateApp() {
     .then(function (answer) {
       //console.log(answer.generate);
       switch (answer.generate) {
+        case "Display All Employee Info":
+          displayAllEmployeeInfo();
+          break;
         case "View All Employees":
           viewEmployees();
           break;
@@ -83,6 +86,14 @@ function generateApp() {
 }
 
 //======functions based on selected user answer========================
+function displayAllEmployeeInfo(){
+  connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary FROM employee JOIN role on employee.role_id = role.id JOIN department ON role.department_id = department.id;", function(err, res){
+    if(err) throw err;
+    console.table(res);
+    generateApp();
+  })
+}
+
 function viewEmployees() {
   console.log("Employee List: \n");
   connection.query("SELECT * FROM employee", function (err, res) {
@@ -325,9 +336,8 @@ function updateRole() {
       }
     });
 }
-//Not working correctly
 
-//=====BONUS=======DELETE
+//=====BONUS=======
 function deleteDepartment() {
   console.log("Follow prompt to delete a Department:\n");
   inquirer
