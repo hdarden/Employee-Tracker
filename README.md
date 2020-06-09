@@ -13,7 +13,7 @@ Build a command-line application that at a minimum allows the user to: Add depar
 
 
 ## Video Link of Functioning App
-[Watch Video](https://drive.google.com/file/d/1rmi270dOTO0g7C4XP5VG6AeHWid7xNpa/preview)  
+[Watch Video](https://drive.google.com/file/d/1rmi270dOTO0g7C4XP5VG6AeHWid7xNpa/view)  
 
 
 ## User Story
